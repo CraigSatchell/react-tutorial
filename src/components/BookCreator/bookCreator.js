@@ -40,8 +40,8 @@ class BookCreator extends Component {
       return (
          <div>
             <hr />
-            <div className="center">
-               <h3>Add a new book!</h3>
+            <div>
+               <h3 style={{ textAlign: 'center'}}>Add a new book!</h3>
             </div>
             <form onSubmit={this.handleSubmit}>
                <div className="row col-align">
