@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import TitleBar from './TitleBar/titleBar'
+import TitleBar from './TitleBar/titleBar';
+import BookViewer from './BookViewer/bookViewer';
 
 class App extends Component {
   constructor(props) {
@@ -25,25 +26,22 @@ class App extends Component {
     });
     }
 
+    goToPreviousBook(){
+      let tempBookNumber = this.state.bookNumber;
+      tempBookNumber--;
+      if(tempBookNumber < 0)
+      tempBookNumber = this.books.length - 1;
+      this.setState({
+      bookNumber: tempBookNumber
+      });
+      }
   
   render() {
     return (
       <div className="container-fluid">
         <TitleBar />
-        <div className="row row-spacer">
-          <div className="col-md-4">
-            {/*Button here to move to the previous book viewed*/}
-          </div>
-          <div className="col-md-4">
-            <h1>{this.books[this.state.bookNumber].title}</h1>
-            <h4>{this.books[this.state.bookNumber].author}</h4>
-          </div>
-          <div className="col-md-4">
-            {/*Button here to move to the previous book viewed*/}
-          </div>
-        </div>
+        <BookViewer book={this.books[this.state.bookNumber]} nextBook={() => this.goToNextBook()} previousBook={() => this.goToPreviousBook()} />
       </div>
-
     );
   }
 }
