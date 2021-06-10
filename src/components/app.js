@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import TitleBar from './TitleBar/titleBar';
 import BookViewer from './BookViewer/bookViewer';
+import BookCreator from './BookCreator/bookCreator';
 
 class App extends Component {
   constructor(props) {
@@ -15,32 +16,41 @@ class App extends Component {
     }
   }
 
-  goToNextBook(){
+  addNewBook(book) {
+    this.books.push(book);
+    this.setState({
+      bookNumber: this.books.length - 1
+    });
+  }
+
+
+  goToNextBook() {
     let tempBookNumber = this.state.bookNumber;
     tempBookNumber++;
-    if(tempBookNumber === this.books.length){
-    tempBookNumber = 0;
+    if (tempBookNumber === this.books.length) {
+      tempBookNumber = 0;
     }
     this.setState({
-    bookNumber: tempBookNumber
-    });
-    }
-
-    goToPreviousBook(){
-      let tempBookNumber = this.state.bookNumber;
-      tempBookNumber--;
-      if(tempBookNumber < 0)
-      tempBookNumber = this.books.length - 1;
-      this.setState({
       bookNumber: tempBookNumber
-      });
-      }
-  
+    });
+  }
+
+  goToPreviousBook() {
+    let tempBookNumber = this.state.bookNumber;
+    tempBookNumber--;
+    if (tempBookNumber < 0)
+      tempBookNumber = this.books.length - 1;
+    this.setState({
+      bookNumber: tempBookNumber
+    });
+  }
+
   render() {
     return (
       <div className="container-fluid">
         <TitleBar />
         <BookViewer book={this.books[this.state.bookNumber]} nextBook={() => this.goToNextBook()} previousBook={() => this.goToPreviousBook()} />
+        <BookCreator addNewBook={this.addNewBook.bind(this)}/>
       </div>
     );
   }
